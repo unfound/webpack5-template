@@ -3,6 +3,7 @@ const { merge } = require('webpack-merge')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
+const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
 const common = require('./webpack.common.js')
 
 function resolve (url) {
@@ -24,6 +25,12 @@ module.exports = merge(common, {
         clean: true
     },
     plugins: [
+        new ForkTsCheckerWebpackPlugin({
+            async: false,
+            typescript: {
+                memoryLimit: 4096
+            }
+        }),
         new MiniCssExtractPlugin({
             filename: '[name].[contenthash].css',
             chunkFilename: '[id].[contenthash].css',

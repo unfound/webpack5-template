@@ -6,12 +6,16 @@ function resolve (url) {
 }
 
 module.exports = {
-    entry: resolve('src/index.js'),
+    context: process.cwd(), // to automatically find tsconfig.json
+    entry: resolve('src/index.ts'),
     plugins: [
         new HtmlWebpackPlugin({
             template: resolve('index.html'),
         })
     ],
+    resolve: {
+        extensions: ['.tsx', '.ts', '.js']
+    },
     module: {
         rules: [
             {
@@ -20,6 +24,12 @@ module.exports = {
             }, {
                 test: /\.(woff|woff2|eot|ttf|otf)$/i,
                 type: 'asset/resource'
+            }, {
+                test: /\.tsx?$/i,
+                use: [
+                    { loader: 'ts-loader', options: { transpileOnly: true } }
+                ],
+                exclude: /node_modules/
             }
         ]
     }

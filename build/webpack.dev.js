@@ -1,6 +1,8 @@
 const path = require('path')
 const { merge } = require('webpack-merge')
 const common = require('./webpack.common.js')
+const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
+const ForkTsCheckerNotifierWebpackPlugin = require('fork-ts-checker-notifier-webpack-plugin')
 
 function resolve (url) {
     return path.resolve(__dirname, '..', url)
@@ -28,4 +30,8 @@ module.exports = merge(common, {
     optimization: {
         runtimeChunk: true
     },
+    plugins: [
+        new ForkTsCheckerWebpackPlugin(),
+        new ForkTsCheckerNotifierWebpackPlugin({ title: 'TypyScript', excludeWarnings: false })
+    ]
 })
