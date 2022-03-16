@@ -26,6 +26,7 @@ module.exports = {
                 type: 'asset/resource'
             }, {
                 test: /\.tsx?$/i,
+                // 也可以试试awesome-typescript-loader，自称有更好的性能
                 use: [
                     { loader: 'ts-loader', options: { transpileOnly: true } }
                 ],
